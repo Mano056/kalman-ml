@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: kalman-ml
 Version: 0.1.0
-Summary: Professional quantitative trading research framework.
+Summary: Quantitative trading research framework.
 Author: Ximano
 Requires-Python: >=3.11
 Description-Content-Type: text/markdown
@@ -17,7 +17,7 @@ Dynamic: license-file
 
 # Kalman ML
 
-A professional quantitative trading research framework built in Python.
+A quantitative trading research framework built in Python.
 
 ## Goals
 

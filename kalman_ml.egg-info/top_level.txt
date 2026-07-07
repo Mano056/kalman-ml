@@ -1,4 +1,7 @@
+backtesting
+config
 core
+data
 indicators
 ml
 strategies

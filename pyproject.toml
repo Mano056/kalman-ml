@@ -27,10 +27,17 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["ml*", "core*", "indicators*", "strategies*"]
-exclude = ["notebooks*", "data*", "config*"]
+include = [
+    "backtesting*",
+    "config",
+    "core*",
+    "data*", 
+    "indicators*", 
+    "ml*",
+    "strategies*"]
+exclude = ["notebooks*",]
 
-[tools.pytest.ini_options]
+[tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.ruff]
