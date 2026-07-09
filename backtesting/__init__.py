@@ -2,8 +2,10 @@
 Backtesting package.
 """
 
+from .backtester import Backtester
 from .result import BacktestResult
 
 __all__ = [
-    "BacktestResult"
+    "Backtester",
+    "BacktestResult",
 ]
