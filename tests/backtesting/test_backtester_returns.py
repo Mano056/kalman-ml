@@ -45,8 +45,9 @@ def test_winning_long_trade() -> None:
     expected = Backtester().initial_cash * (110 / 100)
 
     assert result.final_equity == pytest.approx(expected)
+    assert len(result.equity_curve) == len(series)
 
-def test_lossing_long_trade() -> None:
+def test_losing_long_trade() -> None:
     series = make_series([
         100,
         100,
@@ -69,6 +70,7 @@ def test_lossing_long_trade() -> None:
     expected = Backtester().initial_cash * (90 / 100)
 
     assert result.final_equity == pytest.approx(expected)
+    assert len(result.equity_curve) == len(series)
 
 def test_winning_short_trade() -> None:
     series = make_series([
@@ -93,8 +95,9 @@ def test_winning_short_trade() -> None:
     expected = Backtester().initial_cash * (100 / 90)
 
     assert result.final_equity == pytest.approx(expected)
+    assert len(result.equity_curve) == len(series)
 
-def test_lossing_short_trade() -> None:
+def test_losing_short_trade() -> None:
     series = make_series([
         100,
         100,
@@ -117,3 +120,34 @@ def test_lossing_short_trade() -> None:
     expected = Backtester().initial_cash * (100 / 110)
 
     assert result.final_equity == pytest.approx(expected)
+    assert len(result.equity_curve) == len(series)
+
+def test_market_equity_curve() -> None:
+    series = make_series([
+        100,
+        100,
+        110,
+        120,
+        120,
+    ])
+
+    postions = PositionSeries([
+        0,
+        1,
+        1,
+        1,
+        0,
+    ])
+
+    result = Backtester().run(
+        series,
+        postions,
+    )
+
+    assert result.equity_curve == pytest.approx([
+        10000,
+        10000,
+        11000,
+        12000,
+        12000,
+    ])

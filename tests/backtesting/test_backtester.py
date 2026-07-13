@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytest
 
 from backtesting import Backtester
 from core import Bar, PositionSeries, PriceSeries
@@ -59,6 +60,14 @@ def test_position_change_creates_trade() -> None:
             close=101, 
             volume=1000
         ),
+        Bar(
+            timestamp=datetime(2024, 1, 3),
+            open=102,
+            high=102,
+            low=102,
+            close=102,
+            volume=1000,
+        )
     ]
 
     series = PriceSeries(bars)
@@ -66,6 +75,7 @@ def test_position_change_creates_trade() -> None:
     positions = PositionSeries([
         0.0,
         1.0,
+        0.0,
     ])
 
     result = Backtester().run(series, positions)
@@ -73,11 +83,12 @@ def test_position_change_creates_trade() -> None:
     assert len(result.trades) == 1
 
     trade = result.trades[0]
+    expected = trade.exit_price / trade.entry_price - 1
 
-    assert trade.timestamp == bars[1].timestamp
-    assert trade.price == 101
-    assert trade.previous_position == 0.0
-    assert trade.new_position == 1.0
+    assert trade.entry_price == 101
+    assert trade.exit_price == 102
+    assert trade.direction == 1
+    assert trade.return_pct == pytest.approx(expected)
 
 def test_profitable_long_trade_increase_equity() -> None:
     bars = [

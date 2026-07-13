@@ -8,30 +8,41 @@ from dataclasses import dataclass
 from datetime import datetime
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class Trade:
     """
     Represents a position change executed by the backtester.
     
     Parameters
     ----------
-    timestamp
-        Execution timestamp.
+    entry_time
+        Entry timestamp.
     
-    price
-        Execution price.
+    exit_time
+        Exit timetamp.
     
-    previous_position
-        Position before execution.
+    direction
+        Position of entry.
     
-    new_position
-        Position after execution.
+    entry_price
+        Trade execution price.
+    
+    exit_price
+        Trade exit price.
+
+    return_pct
+        Trade return percentage.
     """
 
-    timestamp: datetime
-    price: float
-    previous_position: float
-    new_position: float
+    entry_time: datetime
+    exit_time: datetime
+
+    direction: float
+
+    entry_price: float
+    exit_price: float
+
+    return_pct: float
 
     @property
     def position_change(self) -> float:

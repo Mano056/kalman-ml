@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 
 from core import PositionSeries, PriceSeries, Trade
 
@@ -19,6 +20,8 @@ class Backtester:
         
         equity = self.initial_cash
 
+        entry_time: datetime | None = None
+
         current_position = 0.0
 
         entry_price: float | None = None
@@ -33,26 +36,45 @@ class Backtester:
 
                 if current_position != 0:
 
+                    exit_price = bar.close
+                    exit_time = bar.timestamp
+
                     if current_position == 1:
-                        equity *= bar.close / entry_price
+                        equity *= exit_price / entry_price
+                        return_pct = exit_price / entry_price - 1
                     
                     elif current_position == -1:
-                        equity *= entry_price / bar.close
-                
-                if desired_position != 0:
-                    entry_price = bar.close
-
+                        equity *= entry_price / exit_price
+                        return_pct = entry_price / exit_price - 1
+                    
                     trades.append(
                         Trade(
-                            timestamp=bar.timestamp,
-                            price=bar.close,
-                            previous_position=current_position,
-                            new_position=desired_position,
+                            entry_time=entry_time,
+                            exit_time=exit_time,
+                            direction=current_position,
+                            entry_price=entry_price,
+                            exit_price=exit_price,
+                            return_pct=return_pct,
                         )
                     )
 
+                if desired_position != 0:
+                    entry_price = bar.close
+                    entry_time = bar.timestamp
+
                 current_position = desired_position
-            equity_curve.append(equity)
+            
+            if current_position == 1:
+                current_equity = equity * (bar.close / entry_price)
+            
+            elif current_position == -1:
+                current_equity = equity * (entry_price / bar.close)
+            
+            else:
+                current_equity = equity
+
+            equity_curve.append(current_equity)
+            
 
         return BacktestResult(
             initial_cash=self.initial_cash,
