@@ -15,14 +15,3 @@ class BacktestResult:
     final_equity: float
     trades: list[Trade]
     equity_curve: list[float]
-
-    @property
-    def total_return(self) -> float:
-        """
-        Return as a decimal.
-        
-        Example
-        -------
-        0.15 == +15%
-        """
-        return (self.final_equity - self.initial_cash) / self.initial_cash
