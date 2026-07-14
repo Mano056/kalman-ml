@@ -44,8 +44,5 @@ class Trade:
 
     return_pct: float
 
-    @property
-    def position_change(self) -> float:
-        """Return the change in position."""
-        return self.new_position - self.previous_position
+    
     
