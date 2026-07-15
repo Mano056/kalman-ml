@@ -2,6 +2,9 @@ LICENSE
 README.md
 pyproject.toml
 backtesting/__init__.py
+backtesting/backtester.py
+backtesting/metrics.py
+backtesting/report.py
 backtesting/result.py
 config/__init__.py
 config/base.py
@@ -27,6 +30,9 @@ kalman_ml.egg-info/dependency_links.txt
 kalman_ml.egg-info/requires.txt
 kalman_ml.egg-info/top_level.txt
 ml/__init__.py
+plotting/__init__.py
+plotting/price.py
+scripts/run_backtest.py
 strategies/__init__.py
 strategies/base.py
 strategies/kalman_crossover.py

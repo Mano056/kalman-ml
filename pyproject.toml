@@ -34,7 +34,10 @@ include = [
     "data*", 
     "indicators*", 
     "ml*",
-    "strategies*"]
+    "strategies*",
+    "scripts*",
+    "plotting*",
+]
 exclude = ["notebooks*",]
 
 [tool.pytest.ini_options]

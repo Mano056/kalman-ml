@@ -2,6 +2,9 @@ backtesting
 config
 core
 data
+datasets
 indicators
 ml
+plotting
+scripts
 strategies
