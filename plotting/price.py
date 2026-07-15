@@ -4,6 +4,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 from core import PriceSeries
+from .drawing import draw_price
 
 
 def plot_price(series: PriceSeries) -> Figure:
@@ -31,7 +32,10 @@ def plot_price(series: PriceSeries) -> Figure:
     
     fig, ax = plt.subplots()
 
-    ax.plot(series.closes)
+    draw_price(
+        ax, 
+        series,
+    )
 
     ax.set_title("Price")
     ax.set_xlabel("Bar")

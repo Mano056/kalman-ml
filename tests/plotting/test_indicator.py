@@ -7,6 +7,7 @@ from indicators import IndicatorResult
 from plotting import plot_indicator
 from indicators import KalmanIndicator
 from config import KalmanConfig
+from plotting.drawing import draw_indicator, draw_price
 
 
 def make_series() -> PriceSeries:
@@ -54,4 +55,3 @@ def test_plot_indicator_none_raises():
 def test_plot_indicator_invalid_type_raises():
     with pytest.raises(TypeError):
         plot_indicator([])
-        

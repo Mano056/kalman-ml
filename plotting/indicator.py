@@ -5,6 +5,7 @@ from matplotlib.figure import Figure
 
 
 from indicators import IndicatorResult
+from .drawing import draw_price, draw_indicator
 
 
 def plot_indicator(
@@ -23,13 +24,15 @@ def plot_indicator(
 
     fig, ax = plt.subplots()
 
-    ax.plot(series.closes, label="Price")
+    draw_price(
+        ax,
+        result.price_series,
+    )
 
-    for name in result.output_names:
-        ax.plot(
-            result.output(name),
-            label=name,
-        )
+    draw_indicator(
+        ax,
+        result,
+    )
 
     ax.set_title(result.name)
     ax.set_xlabel("Bar")
